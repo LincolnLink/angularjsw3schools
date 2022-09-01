@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projeto Angular JS</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+
+<body>
+
+
+  <div ng-app="myApp" ng-controller="myCtrl">
+    {{ firstName + " " + lastName }}
+    <br>
+    <br>
+    <ul>
+      <li ng-repeat="x in names">
+        {{ x }}
+      </li>
+    </ul>
+    <br>
+    <br>
+    <w3-test-directive></w3-test-directive>
+    <br>
+    <br>
+    <!--Declara uma propriedade de nome "name" e faz a exibição do valor dela no H1-->
+    Name: <input ng-model="name">
+    <h1>You entered: {{name}}</h1>
+    <br>
+    <br>
+    <!--Validado-->
+
+    <form name="myForm">
+      Email:
+      <input type="email" name="myAddress" ng-model="text">
+      <span ng-show="myForm.myAddress.$error.email">Not a valid e-mail address</span>
+      <h1>Status</h1>
+      <!--myForm.myAddress.$valid && -->
+      <span ng-show="myForm.myAddress.$valid">Esta valido </span>
+      <br>
+      <span ng-show="myForm.myAddress.$dirty">Está sujo</span>
+      <br>
+      <span ng-show="myForm.myAddress.$touched">Foi tocado</span>
+
+
+    </form>
+
+    <br>
+    <br>
+
+    <br>
+    <br>
+
+    <br>
+    <br>
+
+  </div>
+
+
+
+
+
+  <script src="myApp.js"></script>
+  <script src="myCtrl.js"></script>
+  <script src="w3TestDirective.js"></script>
+
+</body>
+
+</html>
