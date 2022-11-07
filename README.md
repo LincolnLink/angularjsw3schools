@@ -156,36 +156,161 @@ Exemplo {{ 5 + 5 }} ou {{ firstName + " " + lastName }}
 
 # Módulos AngularJS
 
-- 
+- Um módulo AngularJS define um aplicativo.
+
+- O módulo é um contêiner para as diferentes partes de um aplicativo.
+
+- O módulo é um contêiner para os controladores de aplicativos.
+
+- Os controladores sempre pertencem a um módulo.
+
+<blockquote>
+
+	<div ng-app="myApp">...</div>
+
+	<script>
+
+	var app = angular.module("myApp", []);
+
+	</script>
+
+</blockquote>
 
 
+- O parâmetro "myApp" refere-se a um elemento HTML no qual o aplicativo será executado.
 
+- Agora você pode adicionar controladores, diretivas, filtros e muito mais ao seu aplicativo AngularJS.
 
+### Adicionando um Controlador
 
+- Adicione um controlador ao seu aplicativo e consulte o controlador com a ng-controllerdiretiva:
 
+<blockquote>
 
+	<div ng-app="myApp" ng-controller="myCtrl">
+	{{ firstName + " " + lastName }}
+	</div>
 
+	<script>
 
+	var app = angular.module("myApp", []);
 
+	app.controller("myCtrl", function($scope) {
+	  $scope.firstName = "John";
+	  $scope.lastName = "Doe";
+	});
 
+	</script>
 
+</blockquote>
 
+### Adicionando uma Diretiva
 
+- O AngularJS possui um conjunto de diretivas internas que você pode usar para adicionar funcionalidade ao seu aplicativo.
 
+- Para uma referência completa, visite nossa referência de diretiva AngularJS .
 
+- Além disso, você pode usar o módulo para adicionar suas próprias diretivas aos seus aplicativos:
 
+<blockquote>
 
+	<div ng-app="myApp" w3-test-directive></div>
 
+	<script>
+	var app = angular.module("myApp", []);
 
+	app.directive("w3TestDirective", function() {
+	  return {
+	    template : "I was made in a directive constructor!"
+	  };
+	});
+	</script>
 
+</blockquote>
 
+### Módulos e controladores em arquivos separados
 
+- É comum em aplicativos AngularJS colocar o módulo e os controladores em arquivos JavaScript.
 
+- Neste exemplo, "myApp.js" contém uma definição de módulo de aplicativo, enquanto "myCtrl.js" contém o controlador: 
 
+<blockquote>
 
+	<!DOCTYPE html>
+	<html>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<body>
 
+	<div ng-app="myApp" ng-controller="myCtrl">
+	{{ firstName + " " + lastName }}
+	</div>
 
+	<script src="myApp.js"></script>
+	<script src="myCtrl.js"></script>
 
+	</body>
+	</html>
+
+</blockquote>
+
+### Definição vs Recuperação.
+
+- O parâmetro [] na definição do módulo pode ser usado para definir os módulos dependentes.
+
+- Sem o parâmetro [], você não está criando um novo módulo, mas recuperando um existente.
+
+<blockquote>
+
+	var app = angular.module("myApp", []);
+
+</blockquote>
+
+### As funções podem poluir o namespace global
+
+- Funções globais devem ser evitadas em JavaScript. Eles podem ser facilmente substituídos ou destruídos por outros scripts.
+
+- Os módulos AngularJS reduzem esse problema, mantendo todas as funções locais ao módulo.
+
+<blockquote>
+
+	app.controller("myCtrl", function($scope) {
+	  $scope.firstName = "John";
+	  $scope.lastName= "Doe";
+	});
+
+</blockquote>
+
+### Quando carregar a biblioteca
+
+- Embora seja comum em aplicativos HTML colocar scripts no final do <body>elemento, é recomendável carregar a biblioteca AngularJS no <head>arquivo <body>.
+
+- Isso ocorre porque as chamadas para angular.modulesó podem ser compiladas após o carregamento da biblioteca.
+
+<blockquote>
+
+	<!DOCTYPE html>
+	<html>
+	<body>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+	<div ng-app="myApp" ng-controller="myCtrl">
+	{{ firstName + " " + lastName }}
+	</div>
+
+	<script>
+	var app = angular.module("myApp", []);
+	app.controller("myCtrl", function($scope) {
+	  $scope.firstName = "John";
+	  $scope.lastName = "Doe";
+	});
+	</script>
+
+	</body>
+	</html>
+
+</blockquote>
+
+# Diretivas AngularJS
 
 
 
