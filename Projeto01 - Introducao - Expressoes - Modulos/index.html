@@ -13,9 +13,33 @@
 
 
   <div ng-app="myApp" ng-controller="myCtrl">
+    <h1>Expressão</h1>
     {{ firstName + " " + lastName }}
     <br>
     <br>
+    <!--Declara uma propriedade de nome "name" e faz a exibição do valor dela no H3-->
+    <h1>Escrevendo e lendo</h1>
+    Name: <input ng-model="name">
+    <h3>You entered: {{name}}</h3>
+    <br>
+    <br>
+    <!--Validado-->
+    <h1>Validando usando propriedade</h1>
+    <form name="myForm">
+      Email:
+      <input type="email" name="myAddress" ng-model="text">
+      <span ng-show="myForm.myAddress.$error.email">Not a valid e-mail address</span>
+      <h3>Status</h3>
+      <!--myForm.myAddress.$valid && -->
+      <span ng-show="myForm.myAddress.$valid">Esta valido </span>
+      <br>
+      <span ng-show="myForm.myAddress.$dirty">Está sujo</span>
+      <br>
+      <span ng-show="myForm.myAddress.$touched">Foi tocado</span>
+    </form>
+    <br>
+    <br>
+    <h1>Diretiva de repetição</h1>
     <ul>
       <li ng-repeat="x in names">
         {{ x }}
@@ -24,38 +48,8 @@
     <br>
     <br>
     <w3-test-directive></w3-test-directive>
-    <br>
-    <br>
-    <!--Declara uma propriedade de nome "name" e faz a exibição do valor dela no H1-->
-    Name: <input ng-model="name">
-    <h1>You entered: {{name}}</h1>
-    <br>
-    <br>
-    <!--Validado-->
-
-    <form name="myForm">
-      Email:
-      <input type="email" name="myAddress" ng-model="text">
-      <span ng-show="myForm.myAddress.$error.email">Not a valid e-mail address</span>
-      <h1>Status</h1>
-      <!--myForm.myAddress.$valid && -->
-      <span ng-show="myForm.myAddress.$valid">Esta valido </span>
-      <br>
-      <span ng-show="myForm.myAddress.$dirty">Está sujo</span>
-      <br>
-      <span ng-show="myForm.myAddress.$touched">Foi tocado</span>
 
 
-    </form>
-
-    <br>
-    <br>
-
-    <br>
-    <br>
-
-    <br>
-    <br>
 
   </div>
 

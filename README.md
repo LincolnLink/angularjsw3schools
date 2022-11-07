@@ -312,11 +312,381 @@ Exemplo {{ 5 + 5 }} ou {{ firstName + " " + lastName }}
 
 # Diretivas AngularJS
 
+- Listage de cada diretiva: https://www.w3schools.com/angular/angular_ref_directives.asp
+
+- AngularJS permite estender o HTML com novos atributos chamados Diretivas .
+
+- O AngularJS possui um conjunto de diretivas integradas que oferece funcionalidade para seus aplicativos.
+
+- AngularJS também permite definir suas próprias diretivas.
+
+- As diretivas AngularJS são atributos HTML estendidos com o prefixo ng-.
+
+- A ng-appdiretiva inicializa um aplicativo AngularJS.
+
+- A ng-initdiretiva inicializa os dados do aplicativo.
+
+- A ng-modeldiretiva vincula o valor dos controles HTML (entrada, seleção, área de texto) aos dados do aplicativo.
+
+<blockquote>
+
+	<div ng-app="" ng-init="firstName='John'">
+
+	<p>Name: <input type="text" ng-model="firstName"></p>
+	<p>You wrote: {{ firstName }}</p>
+
+	</div>
+
+</blockquote>
+
+- A ng-app diretiva também informa ao AngularJS que o elemento <div> é o "proprietário" do aplicativo AngularJS.
+
+### Ligação de dados
+
+- A {{ firstName }}expressão, no exemplo acima, é uma expressão de ligação de dados AngularJS.
+
+- A vinculação de dados em AngularJS vincula expressões AngularJS com dados AngularJS.
+
+- {{ firstName }}está vinculado com ng-model="firstName".
+
+- No próximo exemplo, dois campos de texto são vinculados com duas diretivas ng-model:
+
+<blockquote>
+
+	<div ng-app="" ng-init="quantity=1;price=5">
+
+	Quantity: <input type="number" ng-model="quantity">
+	Costs:    <input type="number" ng-model="price">
+
+	Total in dollar: {{ quantity * price }}
+
+	</div>
+
+</blockquote>
+
+- O uso ng-initnão é muito comum. Você aprenderá como inicializar dados no capítulo sobre controladores.
+
+### Repetindo Elementos HTML
+
+- A ng-repeatdiretiva repete um elemento HTML:
+
+<blockquote>
+
+	<div ng-app="" ng-init="names=['Jani','Hege','Kai']">
+	  <ul>
+	    <li ng-repeat="x in names">
+	      {{ x }}
+	    </li>
+	  </ul>
+	</div>
+
+</blockquote>
+
+- A ng-repeatdiretiva realmente clona elementos HTML uma vez para cada item em uma coleção.
+
+- A ng-repeatdiretiva usada em uma matriz de objetos:
+
+<blockquote>
+
+	<div ng-app="" ng-init="names=[
+	{name:'Jani',country:'Norway'},
+	{name:'Hege',country:'Sweden'},
+	{name:'Kai',country:'Denmark'}]">
+
+	<ul>
+	  <li ng-repeat="x in names">
+	    {{ x.name + ', ' + x.country }}
+	  </li>
+	</ul>
+
+	</div>
+
+</blockquote>
+
+### OBS
+
+- A ng-appdiretiva define o elemento raiz de um aplicativo AngularJS.
+
+- A ng-appdiretiva irá auto-bootstrap (inicializar automaticamente) o aplicativo quando uma página da web for carregada.
+
+- Normalmente, você não usará ng-init. Você usará um controlador ou módulo em vez disso.
+
+- A ng-modeldiretiva também pode:
+
+	- Forneça validação de tipo para dados do aplicativo (número, e-mail, obrigatório).
+	- Forneça o status dos dados do aplicativo (inválido, sujo, tocado, erro).
+	- Fornece classes CSS para elementos HTML.
+	- Vincule elementos HTML a formulários HTML.
+
+### Criar novas diretivas
+
+- Além de todas as diretivas internas do AngularJS, você pode criar suas próprias diretivas.
+
+- Novas diretivas são criadas usando a .directivefunção.
+
+- Para invocar a nova diretiva, crie um elemento HTML com o mesmo nome de tag da nova diretiva.
+
+- Ao nomear uma diretiva, você deve usar um nome camel case, w3TestDirective, mas ao invocá-lo, você deve usar -name separado, w3-test-directive:
+
+<blockquote>
+
+	<body ng-app="myApp">
+
+	<w3-test-directive></w3-test-directive>
+
+	<script>
+	var app = angular.module("myApp", []);
+	app.directive("w3TestDirective", function() {
+	  return {
+	    template : "<h1>Made by a directive!</h1>"
+	  };
+	});
+	</script>
+
+	</body>
+
+</blockquote>
+
+- Você pode invocar uma diretiva usando:
+
+- Nome do elemento
+
+<blockquote>
+
+	<!DOCTYPE html>
+	<html>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<body ng-app="myApp">
+
+	<w3-test-directive></w3-test-directive>
+
+	<script>
+	var app = angular.module("myApp", []);
+	app.directive("w3TestDirective", function() {
+	    return {
+	        template : "<h1>Made by a directive!</h1>"
+	    };
+	});
+	</script>
+
+	</body>
+	</html>
+
+</blockquote>
+
+- Atributo
+
+<blockquote>
+
+	<!DOCTYPE html>
+	<html>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<body ng-app="myApp">
+
+	<div w3-test-directive></div>
+
+	<script>
+	var app = angular.module("myApp", []);
+	app.directive("w3TestDirective", function() {
+	    return {
+	        template : "<h1>Made by a directive!</h1>"
+	    };
+	});
+	</script>
+
+	</body>
+	</html>
+
+</blockquote>
+
+
+- Classe
+
+<blockquote>
+
+	<!DOCTYPE html>
+	<html>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<body ng-app="myApp">
+
+	<div class="w3-test-directive"></div>
+
+	<script>
+	var app = angular.module("myApp", []);
+	app.directive("w3TestDirective", function() {
+	    return {
+	        restrict : "C",
+	        template : "<h1>Made by a directive!</h1>"
+	    };
+	});
+	</script>
+
+	<p><strong>Note:</strong> You must add the value "C" to the restrict property to be able to invoke the directive from a class name.</p>
+
+	</body>
+	</html>
+
+</blockquote>
+
+- Comente
+
+<blockquote>
+
+	<!DOCTYPE html>
+	<html>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<body ng-app="myApp">
+
+	<!-- directive: w3-test-directive -->
+
+	<script>
+	var app = angular.module("myApp", []);
+	app.directive("w3TestDirective", function() {
+	    return {
+	        restrict : "M",
+	        replace : true,
+	        template : "<h1>Made by a directive!</h1>"
+	    };
+	});
+	</script>
+
+	<p><strong>Note:</strong> We've added the <strong>replace</strong> property in this example, otherwise the comment would be invisible.</p>
+
+	<p><strong>Note:</strong> You must add the value "M" to the <strong>restrict</strong> property to be able to invoke the directive from a comment.</p>
+
+	</body>
+	</html>
+
+</blockquote>
+
+### Restrições
+
+- Você pode restringir suas diretivas para serem invocadas apenas por alguns dos métodos.
+
+- Os valores legais restritos são:
+
+	- E para o nome do elemento
+	- A para atributo
+	- C para classe
+	- M para comentário
+
+- Por padrão, o valor é EA, o que significa que tanto os nomes de elementos quanto os nomes de atributos podem invocar a diretiva.
+
+# Diretiva ng-model, Classes CSS! 
+
+- A ng-modeldiretiva fornece classes CSS para elementos HTML, dependendo de seu status:
+
+<blockquote>
+
+	<style>
+	input.ng-invalid {
+	  background-color: lightblue;
+	}
+	</style>
+	<body>
+
+	<form ng-app="" name="myForm">
+	  Enter your name:
+	  <input name="myName" ng-model="myText" required>
+	</form>
+
+</blockquote>
+
+- A ng-modeldiretiva adiciona/remove as seguintes classes, de acordo com o status do campo do formulário:
+
+	- ng-empty
+	- ng-not-empty
+	- ng-touched
+	- ng-untouched
+	- ng-valid
+	- ng-invalid
+	- ng-dirty
+	- ng-pending
+	- ng-pristine
+
+# Modelo de dados
+
+<blockquote>
+
+	var app = angular.module('myApp', []);
+	app.controller('myCtrl', function($scope) {
+	  $scope.firstname = "John";
+	  $scope.lastname = "Doe";
+	});
+
+</blockquote>
+
+### Visualização HTML
+
+- O contêiner HTML no qual o aplicativo AngularJS é exibido é chamado de visualização.
+
+- A exibição tem acesso ao modelo e há várias maneiras de exibir os dados do modelo na exibição.
+
+- Você pode usar a ng-binddiretiva, que vinculará o innerHTML do elemento à propriedade de modelo especificada:
+
+<blockquote>
+
+	<p ng-bind="firstname"></p>
+
+</blockquote>
+
+<blockquote>
+
+	<p>First name: {{firstname}}</p>
+
+</blockquote>
+
+- Ou você pode usar a ng-modeldiretiva em controles HTML para vincular o modelo à exibição.
+
+### A ng-modelDiretiva
+
+- Use a ng-modeldiretiva para vincular dados do modelo à exibição em controles HTML (entrada, seleção, área de texto)
+
+<blockquote>
+
+	<div ng-app="myApp" ng-controller="myCtrl">
+	  Name: <input ng-model="firstname">
+	  <h1>{{firstname}}</h1>
+	</div>
+
+	<script>
+	var app = angular.module('myApp', []);
+	app.controller('myCtrl', function($scope) {
+	  $scope.firstname = "John";
+	  $scope.lastname = "Doe";
+	});
+	</script>
+
+</blockquote>
+
+Controlador AngularJS
+
+- Devido à sincronização imediata do modelo e da visualização, o controlador pode ser completamente separado da visualização e simplesmente se concentrar nos dados do modelo. Graças à vinculação de dados no AngularJS, a visualização refletirá quaisquer alterações feitas no controlador.
+
+<blockquote>
+
+	<div ng-app="myApp" ng-controller="myCtrl">
+	  <h1 ng-click="changeName()">{{firstname}}</h1>
+	</div>
+
+	<script>
+	var app = angular.module('myApp', []);
+	app.controller('myCtrl', function($scope) {
+	  $scope.firstname = "John";
+	  $scope.changeName = function() {
+	    $scope.firstname = "Nelly";
+	  }
+	});
+	</script>
+
+
+</blockquote>
 
 
 
+<blockquote>
 
-
+</blockquote>
 
 
 
